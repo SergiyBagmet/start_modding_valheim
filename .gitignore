@@ -1,0 +1,91 @@
+#############################
+#        BepInEx            #
+#############################
+
+# Сборки, генерируемые BepInEx / .NET
+*.dll
+*.pdb
+*.mdb
+
+# Папки BepInEx, которые нельзя коммитить
+BepInEx/cache/
+BepInEx/config/
+BepInEx/plugins/ # <-- Важно: если твой мод внутри проекта, удали эту строку!
+BepInEx/patchers/
+BepInEx/core/
+BepInEx/unity-libs/
+
+# Логи игры / модов
+BepInEx/logs/
+*.log
+*.log.*
+
+#############################
+#         Unity             #
+#############################
+
+# Unity Library
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Bb]inaries/
+
+# Unity auto-generated meta
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Recorder
+*.mp4
+*.wav
+
+#############################
+#         .NET              #
+#############################
+
+# build output
+bin/
+obj/
+*.exe
+*.runtimeconfig.json
+*.deps.json
+
+# NuGet
+packages/
+*.nupkg
+
+#############################
+#   Visual Studio / Rider   #
+#############################
+
+# VS
+.vs/
+*.user
+*.suo
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VSCode
+.vscode/
+
+#############################
+#      OS JUNK FILES        #
+#############################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~

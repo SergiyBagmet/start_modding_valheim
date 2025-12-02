@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- правильная версия .NET для Valheim -->
+    <TargetFramework>net472</TargetFramework>
+
+    <!-- выключаем лишнее -->
+    <ImplicitUsings>false</ImplicitUsings>
+    <Nullable>disable</Nullable>
+
+    <!-- вывод DLL в папку r2modman -->
+    <OutputPath>G:\modding\modding_builds\HelloWorldMod</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 🔹 BepInEx -->
+    <Reference Include="BepInEx">
+      <HintPath>C:\Users\serge\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\my_mods\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Harmony">
+      <HintPath>C:\Users\serge\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\my_mods\BepInEx\core\BepInEx.Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Preloader">
+      <HintPath>C:\Users\serge\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\my_mods\BepInEx\core\BepInEx.Preloader.dll</HintPath>
+    </Reference>
+
+    <!-- 🔹 Harmony -->
+    <Reference Include="0Harmony">
+      <HintPath>C:\Users\serge\AppData\Roaming\r2modmanPlus-local\Valheim\profiles\my_mods\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+
+    <!-- 🔹 Unity DLL -->
+    <Reference Include="UnityEngine">
+      <HintPath>G:\steam\steamapps\common\Valheim\Valheim_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>G:\steam\steamapps\common\Valheim\Valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>G:\steam\steamapps\common\Valheim\Valheim_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>G:\steam\steamapps\common\Valheim\Valheim_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+
+    <!-- 🔹 DLL Valheim -->
+    <Reference Include="assembly_valheim">
+      <HintPath>G:\steam\steamapps\common\Valheim\Valheim_Data\Managed\assembly_valheim.dll</HintPath>
+    </Reference>
+
+    <Reference Include="assembly_utils">
+      <HintPath>G:\steam\steamapps\common\Valheim\Valheim_Data\Managed\assembly_utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
