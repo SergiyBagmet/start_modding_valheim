@@ -40,6 +40,9 @@ namespace HelloWorldMod.UI
             isEditing = IsEditKeyPressed();
         }
 
+        //метод для сохранения состояний
+        protected virtual void AfterWindowChanged() {}
+
         protected virtual void OnGUI()
         {
             if (!IsHudEnabled)
@@ -101,12 +104,14 @@ namespace HelloWorldMod.UI
                         windowRect.x = mouse.x - dragOffset.x;
                         windowRect.y = mouse.y - dragOffset.y;
                         e.Use();
+                        AfterWindowChanged();
                     }
                     else if (isResizing)
                     {
                         windowRect.width = Mathf.Max(150, mouse.x - windowRect.x);
                         windowRect.height = Mathf.Max(60, mouse.y - windowRect.y);
                         e.Use();
+                        AfterWindowChanged();
                     }
                     break;
             }

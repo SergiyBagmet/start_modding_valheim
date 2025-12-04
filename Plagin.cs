@@ -9,9 +9,11 @@ namespace HelloWorldMod
     public class Plugin : BaseUnityPlugin
     {
         private Harmony _harmony;
+        public static Plugin Instance; 
 
         private void Awake()
         {
+            Instance = this;
             Logger.LogInfo("[HelloWorldMod] Мод загружен!");
 
             _harmony = new Harmony("com.serge.helloworld");

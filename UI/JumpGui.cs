@@ -6,6 +6,9 @@ namespace HelloWorldMod.UI
     {
         public static JumpGui instance;
 
+        //хранение и выгрузка состояний
+        private WindowStateManager state;
+
         public float level = 0f;
         public float progress = 0f;
 
@@ -23,9 +26,26 @@ namespace HelloWorldMod.UI
             }
 
             instance = this;
+
+             // 1. Создаём менеджер состояния, передаём дефолтный windowRect
+            state = new WindowStateManager("JumpHUD", windowRect);
+
+            // 2. Грузим сохранённые значения из конфига
+            windowRect = state.Load();
+
             DontDestroyOnLoad(gameObject);
         }
 
+        protected void OnDestroy()
+        {
+            // 3. На всякий случай сохраняем перед уничтожением
+            state?.Save(windowRect);
+        }
+
+        protected override void AfterWindowChanged()  
+        {
+            state?.Save(windowRect);
+        }
         // говорим базовому классу, когда окно действительно нужно показывать
         protected override bool IsHudEnabled => hudEnabled;
 
