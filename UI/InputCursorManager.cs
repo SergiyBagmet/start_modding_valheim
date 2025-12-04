@@ -1,53 +1,45 @@
-/*using UnityEngine;
+using UnityEngine;
 
 namespace HelloWorldMod.UI
 {
-    /// <summary>
-    /// Управляет видимостью курсора и отключением камеры,
-    /// когда ALT зажат (режим редактирования HUD).
-    /// </summary>
     public class InputCursorManager : MonoBehaviour
     {
         public static InputCursorManager Instance;
 
-        private bool lastState = false; // прошлое состояние (editing / not)
+        private bool editingMode = false; // теперь мы сами управляем этим флагом
+        private bool lastState = false;
 
         private void Awake()
         {
-            // простой синглтон, чтобы не плодить экземпляры
             if (Instance != null)
             {
                 Destroy(gameObject);
                 return;
             }
-
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
         /// <summary>
-        /// Возвращает true если удерживается ALT.
+        /// Включение/выключение режима редактирования извне.
         /// </summary>
-        public bool IsEditing =>
-            ZInput.GetKey(KeyCode.LeftAlt) ||
-            ZInput.GetKey(KeyCode.RightAlt);
+        public void SetEditing(bool enabled)
+        {
+            editingMode = enabled;
+        }
+
+        public bool IsEditingMode => editingMode;
 
         private void Update()
         {
-            bool editing = IsEditing;
-
-            if (editing != lastState)
+            if (editingMode != lastState)
             {
-                lastState = editing;
+                lastState = editingMode;
 
-                if (editing)
-                {
+                if (editingMode)
                     EnableCursor();
-                }
                 else
-                {
                     DisableCursor();
-                }
             }
         }
 
@@ -69,4 +61,4 @@ namespace HelloWorldMod.UI
                 GameCamera.instance.enabled = true;
         }
     }
-}*/
+}

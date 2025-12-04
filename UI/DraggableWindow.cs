@@ -23,22 +23,15 @@ namespace HelloWorldMod.UI
         // Нужно ли требовать, чтобы игрок был в мире
         protected virtual bool RequirePlayer => true;
 
-        /// <summary>
-        /// Клавиша, при зажатии которой включаем режим редактирования.
-        /// Можно переопределить, если захочешь другую.
-        /// </summary>
-        protected virtual bool IsEditKeyPressed()
-        {
-            return ZInput.GetKey(KeyCode.LeftAlt) || ZInput.GetKey(KeyCode.RightAlt);
-        }
-
         // Наследник должен реализовать отрисовку содержимого
         protected abstract void DrawWindow(Rect rect);
 
         //вызывает Юнити
         protected virtual void Update()
         {
-            isEditing = IsEditKeyPressed();
+            /// Клавиша, при зажатии которой включаем режим редактирования.
+            isEditing = InputCursorManager.Instance != null &&
+            InputCursorManager.Instance.IsEditingMode;
         }
 
         //метод для сохранения состояний

@@ -20,8 +20,10 @@ namespace HelloWorldMod
             _harmony.PatchAll(); // активировать все патчи
 
             // создаём GUI HUD
-            new GameObject("JumpGui").AddComponent<HelloWorldMod.UI.JumpGui>();
-            //new GameObject("InputCursorManager").AddComponent<InputCursorManager>();        
+            new GameObject("JumpGui").AddComponent<JumpGui>();
+            // подключаем контроллеры
+            new GameObject("InputCursorManager").AddComponent<InputCursorManager>();
+            new GameObject("HudEditModeController").AddComponent<HudEditModeController>();        
         }
 
         private void Update()
