@@ -21,6 +21,7 @@ namespace HelloWorldMod
 
             // создаём GUI HUD
             new GameObject("JumpGui").AddComponent<HelloWorldMod.UI.JumpGui>();
+            //new GameObject("InputCursorManager").AddComponent<InputCursorManager>();        
         }
 
         private void Update()
