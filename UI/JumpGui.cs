@@ -8,6 +8,7 @@ namespace HelloWorldMod.UI
 
         //хранение и выгрузка состояний
         private WindowStateManager state;
+        private bool loadedValues = false;
 
         public float level = 0f;
         public float progress = 0f;
@@ -32,8 +33,19 @@ namespace HelloWorldMod.UI
 
             // 2. Грузим сохранённые значения из конфига
             windowRect = state.Load();
-
             DontDestroyOnLoad(gameObject);
+        }
+
+        protected override void Update()
+        {   //грузим доп параметры с конфига 1 раз меняя флаг после плеера
+            //по идеи можно прописать в Awake() без флага
+            if (!loadedValues && Player.m_localPlayer != null)
+            {
+                loadedValues = true;
+
+                level = state.LoadValue("level", level);
+                progress = state.LoadValue("progress", progress);
+            }
         }
 
         protected void OnDestroy()
@@ -100,6 +112,10 @@ namespace HelloWorldMod.UI
         {
             level = lvl;
             progress = pct;
+
+            //сохраняем значение в конфиг через WindowStateManager
+            state?.SaveValue("level", level);
+            state?.SaveValue("progress", progress);
         }
     }
 }

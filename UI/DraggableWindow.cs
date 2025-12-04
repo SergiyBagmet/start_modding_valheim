@@ -35,6 +35,7 @@ namespace HelloWorldMod.UI
         // Наследник должен реализовать отрисовку содержимого
         protected abstract void DrawWindow(Rect rect);
 
+        //вызывает Юнити
         protected virtual void Update()
         {
             isEditing = IsEditKeyPressed();
@@ -43,6 +44,7 @@ namespace HelloWorldMod.UI
         //метод для сохранения состояний
         protected virtual void AfterWindowChanged() {}
 
+        //вызывает сама Юнити
         protected virtual void OnGUI()
         {
             if (!IsHudEnabled)
