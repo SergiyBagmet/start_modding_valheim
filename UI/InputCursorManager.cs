@@ -50,8 +50,12 @@ namespace HelloWorldMod.UI
 
             if (GameCamera.instance != null)
                 GameCamera.instance.enabled = false;
-        }
+            
+            //отключить управление
+            //change IsEditingMode flag in InventoryGuiFakeOpenPatch.cs
+           
 
+        }
         private void DisableCursor()
         {
             Cursor.visible = false;
@@ -59,6 +63,10 @@ namespace HelloWorldMod.UI
 
             if (GameCamera.instance != null)
                 GameCamera.instance.enabled = true;
+
+            // включить управление
+            //change IsEditingMode flag in InventoryGuiFakeOpenPatch.cs
+            
         }
     }
 }
