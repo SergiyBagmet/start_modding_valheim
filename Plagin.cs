@@ -2,6 +2,7 @@ using BepInEx;
 using HarmonyLib;
 using UnityEngine;
 using HelloWorldMod.UI;
+using HelloWorldMod.UI.Menu;
 
 namespace HelloWorldMod
 {
@@ -23,16 +24,17 @@ namespace HelloWorldMod
             new GameObject("JumpGui").AddComponent<JumpGui>();
             // подключаем контроллеры
             new GameObject("InputCursorManager").AddComponent<InputCursorManager>();
-            new GameObject("HudEditModeController").AddComponent<HudEditModeController>();        
+            new GameObject("HudEditModeController").AddComponent<HudEditModeController>();
+            new GameObject("MenuManager").AddComponent<MenuManager>();        
         }
 
         private void Update()
         {
-            if (ZInput.GetKeyDown(KeyCode.F9)) // например F9
+            /*if (ZInput.GetKeyDown(KeyCode.F9)) // например F9
             {
                 JumpGui.hudEnabled = !JumpGui.hudEnabled;
                 Logger.LogInfo("HUD toggled: " + JumpGui.hudEnabled);
-            }
+            }*/
         }
 
         private void OnDestroy()
