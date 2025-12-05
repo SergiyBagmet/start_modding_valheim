@@ -7,46 +7,44 @@ namespace HelloWorldMod.UI.Menu
     {
         protected Rect windowRect = new Rect(300, 200, 420, 260);
 
-        protected bool dragging = false;
-        protected Vector2 dragOffset;
-
         public bool IsOpen { get; private set; } = false;
 
         public void Open()
         {
             IsOpen = true;
             FakeInventory.Open();
-            //Cursor.visible = true;
-            //Cursor.lockState = CursorLockMode.None;
         }
 
         public void Close()
         {
             IsOpen = false;
             FakeInventory.Close();
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         protected virtual void OnGUI()
         {
             if (!IsOpen) return;
 
+            // 🔥 ЛОВИМ КНОПКИ ТУТ — в GUI, там где Event.current работает!
+            if (MenuManager.Instance != null && MenuManager.Instance.IsWaiting())
+            {
+                Event e = Event.current;
+
+                if (e.type == EventType.KeyDown && e.keyCode != KeyCode.None)
+                {
+                    MenuManager.Instance.FinishWaiting(e.keyCode);
+                }
+            }
+
             windowRect = GUI.Window(GetInstanceID(), windowRect, DrawWindow, "");
         }
 
         private void DrawWindow(int id)
         {
-            HandleDrag();
             RenderContents();
-            GUI.DragWindow(new Rect(0, 0, windowRect.width, 25)); // draggable bar
+            GUI.DragWindow(new Rect(0, 0, windowRect.width, 25)); 
         }
 
         protected abstract void RenderContents();
-
-        private void HandleDrag()
-        {
-            // handled by GUI.DragWindow, оставляем пустым
-        }
     }
 }

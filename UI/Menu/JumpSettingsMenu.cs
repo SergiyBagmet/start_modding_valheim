@@ -8,11 +8,13 @@ namespace HelloWorldMod.UI.Menu
     {
         private float multiplier = 1f;
         private string sliderText => $"{multiplier:0.0}x";
-
-        private KeyCode hudToggleKey = KeyCode.F10;
-
         protected override void RenderContents()
         {
+            // Фон окна
+            GUI.color = new Color(0, 0, 0, 0.6f); 
+            GUI.Box(windowRect, GUIContent.none);
+            GUI.color = Color.white;
+
             float y = 10f;
 
             // Заголовок
@@ -42,10 +44,20 @@ namespace HelloWorldMod.UI.Menu
             y += 50;
 
             // Бинд отображения HUD окна
-            GUI.Label(new Rect(20, y, 250, 25), $"Show HUD key: {hudToggleKey}");
-            if (GUI.Button(new Rect(280, y, 120, 25), "Change"))
+            GUI.Label(new Rect(20, y, 250, 25), $"Show HUD key: {MenuManager.Instance.hudToggleKey}");
+            if (!MenuManager.Instance.IsWaiting())
             {
-                // позже добавим режим ожидания нажатия
+                if (GUI.Button(new Rect(280, y, 120, 25), "Change"))
+                {
+                    MenuManager.Instance.WaitForKey(key =>
+                    {
+                        MenuManager.Instance.hudToggleKey = key;
+                    });
+                }
+            }
+            else
+            {
+                GUI.Label(new Rect(280, y, 120, 25), "Press key...");
             }
 
             y += 40;

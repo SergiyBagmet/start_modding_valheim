@@ -1,10 +1,8 @@
-using BepInEx;
 using HarmonyLib;
 using HelloWorldMod.UI.Menu;
 
 namespace HelloWorldMod.Patches
 {
-
 
     [HarmonyPatch(typeof(Chat), "InputText")]
     public static class ChatPatch
