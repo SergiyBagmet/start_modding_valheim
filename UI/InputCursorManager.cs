@@ -1,3 +1,4 @@
+using HelloWorldMod.Patches;
 using UnityEngine;
 
 namespace HelloWorldMod.UI
@@ -51,11 +52,10 @@ namespace HelloWorldMod.UI
             if (GameCamera.instance != null)
                 GameCamera.instance.enabled = false;
             
-            //отключить управление
-            //change IsEditingMode flag in InventoryGuiFakeOpenPatch.cs
-           
-
+            //отключить управление игрока (вызвав фейк инвентарь)
+            FakeInventory.Open();
         }
+
         private void DisableCursor()
         {
             Cursor.visible = false;
@@ -64,9 +64,8 @@ namespace HelloWorldMod.UI
             if (GameCamera.instance != null)
                 GameCamera.instance.enabled = true;
 
-            // включить управление
-            //change IsEditingMode flag in InventoryGuiFakeOpenPatch.cs
-            
+            //включить управление игрока (отмена фейк инвентарь)
+            FakeInventory.Close();
         }
     }
 }
