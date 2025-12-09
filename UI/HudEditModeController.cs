@@ -1,4 +1,5 @@
 using UnityEngine;
+using HelloWorldMod.UI.Menu;
 
 namespace HelloWorldMod.UI
 {
@@ -19,7 +20,7 @@ namespace HelloWorldMod.UI
             bool editing = false;
 
             // 1. классическое — ALT
-            editing |= ZInput.GetKey(KeyCode.LeftAlt) || ZInput.GetKey(KeyCode.RightAlt);
+            editing |= ZInput.GetKey(MenuManager.Instance.dragModifier);
             InputCursorManager.Instance?.SetEditing(editing);
         }
     }

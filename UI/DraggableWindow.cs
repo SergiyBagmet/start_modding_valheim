@@ -29,7 +29,7 @@ namespace HelloWorldMod.UI
         //вызывает Юнити
         protected virtual void Update()
         {
-            /// Клавиша, при зажатии которой включаем режим редактирования.
+            /// Клавиша, при зажатии которой включаером режим редактивания.
             isEditing = InputCursorManager.Instance != null &&
             InputCursorManager.Instance.IsEditingMode;
         }

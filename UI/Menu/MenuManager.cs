@@ -3,15 +3,23 @@ using UnityEngine;
 
 namespace HelloWorldMod.UI.Menu
 {
+    public enum WaitingFor
+    {
+        None,
+        HudToggleKey,
+        DragModifierKey
+    }
     public class MenuManager : MonoBehaviour
     {
         public static MenuManager Instance;
 
         private JumpSettingsMenu jumpMenu;
 
-        private bool isWaiting = false;
-        private Action<KeyCode> onKeySelected;
+        public bool AnyMenuOpen => jumpMenu != null && jumpMenu.IsOpen;
 
+        // private bool isWaiting = false;
+        private Action<KeyCode> onKeySelected;
+        private WaitingFor waitingFor = WaitingFor.None;
         public KeyCode hudToggleKey = KeyCode.F9;
         public KeyCode dragModifier = KeyCode.LeftAlt;
 
@@ -29,20 +37,21 @@ namespace HelloWorldMod.UI.Menu
             jumpMenu = gameObject.AddComponent<JumpSettingsMenu>();
         }
 
-        public void WaitForKey(Action<KeyCode> callback)
+        public bool IsWaiting() => waitingFor != WaitingFor.None;
+        public WaitingFor WhatAreWeWaitingFor() => waitingFor;
+
+        public void WaitForKey(WaitingFor what, Action<KeyCode> callback)
         {
-            isWaiting = true;
+            waitingFor = what;
             onKeySelected = callback;
         }
 
         public void FinishWaiting(KeyCode key)
         {
-            isWaiting = false;
+            waitingFor = WaitingFor.None;
             onKeySelected?.Invoke(key);
             onKeySelected = null;
         }
-
-        public bool IsWaiting() => isWaiting;
 
         public void ToggleJumpMenu()
         {

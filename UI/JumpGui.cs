@@ -1,3 +1,4 @@
+using HelloWorldMod.UI.Menu;
 using UnityEngine;
 
 namespace HelloWorldMod.UI
@@ -36,6 +37,17 @@ namespace HelloWorldMod.UI
             progress = state.LoadValue("progress", progress);
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        protected override void Update()
+        {
+            base.Update(); // важное — базовый Update() отслеживает isEditing
+
+            // Ловим бинд показа HUD
+            if (ZInput.GetKeyDown(MenuManager.Instance.hudToggleKey))
+            {
+                hudEnabled = !hudEnabled;
+            }
         }
 
         protected void OnDestroy()

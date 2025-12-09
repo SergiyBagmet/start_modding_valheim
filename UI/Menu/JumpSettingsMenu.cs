@@ -8,6 +8,26 @@ namespace HelloWorldMod.UI.Menu
     {
         private float multiplier = 1f;
         private string sliderText => $"{multiplier:0.0}x";
+        
+        private WindowStateManager state;
+        private KeyCode hudKey;
+        private KeyCode dragKey;
+
+        private void Start()
+        {
+            state = new WindowStateManager("JumpSettingsMenu", windowRect);
+
+            // грузим начальные настройки или по ключу секции сохраненные значения
+            windowRect = state.Load();
+            multiplier = state.LoadValue("JumpMultiplier", 1f);
+            hudKey = (KeyCode)state.LoadValue("HudToggleKey", (int)KeyCode.F9);
+            dragKey =(KeyCode)state.LoadValue("HudToggleKey", (int)KeyCode.LeftAlt);
+
+            // применяем в игру
+            JumpXpMultiplierPatch.SetMultiplier(multiplier);
+            MenuManager.Instance.hudToggleKey = hudKey;
+            MenuManager.Instance.dragModifier = dragKey;
+        }
         protected override void RenderContents()
         {
             // Фон окна
@@ -45,29 +65,55 @@ namespace HelloWorldMod.UI.Menu
 
             // Бинд отображения HUD окна
             GUI.Label(new Rect(20, y, 250, 25), $"Show HUD key: {MenuManager.Instance.hudToggleKey}");
-            if (!MenuManager.Instance.IsWaiting())
+            if (MenuManager.Instance.WhatAreWeWaitingFor() != WaitingFor.HudToggleKey)
             {
                 if (GUI.Button(new Rect(280, y, 120, 25), "Change"))
                 {
-                    MenuManager.Instance.WaitForKey(key =>
+                    MenuManager.Instance.WaitForKey(WaitingFor.HudToggleKey,key =>
                     {
                         MenuManager.Instance.hudToggleKey = key;
                     });
                 }
             }
-            else
-            {
-                GUI.Label(new Rect(280, y, 120, 25), "Press key...");
-            }
+            else GUI.Label(new Rect(280, y, 120, 25), "Press key...");
 
             y += 40;
 
-            // Кнопка включить режим перетаскивания HUD
-            if (GUI.Button(new Rect(20, y, 380, 35),
-                "Enable HUD Drag Mode (hold + LMB)"))
+            // Кнопка включить для бинда - режим перетаскивания HUD
+
+            GUI.Label(new Rect(20, y, 250, 25), $"Show dragKey: {MenuManager.Instance.dragModifier} + LMB");
+            if (MenuManager.Instance.WhatAreWeWaitingFor() != WaitingFor.DragModifierKey)
             {
-                InputCursorManager.Instance.SetEditing(true);
+                if (GUI.Button(new Rect(280, y, 120, 25), "Change"))
+                {
+                    MenuManager.Instance.WaitForKey(WaitingFor.DragModifierKey,key =>
+                    {
+                        MenuManager.Instance.dragModifier = key;
+                    });
+                }
             }
+            else GUI.Label(new Rect(280, y, 120, 25), "Press key...");
+          
+
+
+            y += 50;
+
+            // DEFAULTS
+            if (GUI.Button(new Rect(20, y, 120, 35), "Reset to Defaults"))
+            {
+                multiplier = 1f;
+                MenuManager.Instance.hudToggleKey = KeyCode.F9;
+                MenuManager.Instance.dragModifier = KeyCode.LeftAlt;
+            }
+        }
+
+        public override void SaveChangesToCfg()
+        {
+            // сохраняем
+            state.SaveValue("JumpMultiplier", multiplier);
+            state.SaveValue("HudToggleKey", (int)hudKey);
+            state.SaveValue("dragModifierKey", (int)dragKey);
+            state.Save(windowRect);
         }
     }
 }

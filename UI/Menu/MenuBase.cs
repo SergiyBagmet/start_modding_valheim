@@ -15,10 +15,15 @@ namespace HelloWorldMod.UI.Menu
             FakeInventory.Open();
         }
 
+        public virtual void SaveChangesToCfg()
+        {
+            
+        }
         public void Close()
         {
             IsOpen = false;
             FakeInventory.Close();
+            SaveChangesToCfg();
         }
 
         protected virtual void OnGUI()
@@ -30,7 +35,7 @@ namespace HelloWorldMod.UI.Menu
             {
                 Event e = Event.current;
 
-                if (e.type == EventType.KeyDown && e.keyCode != KeyCode.None)
+                if (e.type == EventType.KeyUp && e.keyCode != KeyCode.None)
                 {
                     MenuManager.Instance.FinishWaiting(e.keyCode);
                 }
