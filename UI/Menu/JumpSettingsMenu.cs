@@ -21,7 +21,7 @@ namespace HelloWorldMod.UI.Menu
             windowRect = state.Load();
             multiplier = state.LoadValue("JumpMultiplier", 1f);
             hudKey = (KeyCode)state.LoadValue("HudToggleKey", (int)KeyCode.F9);
-            dragKey =(KeyCode)state.LoadValue("HudToggleKey", (int)KeyCode.LeftAlt);
+            dragKey =(KeyCode)state.LoadValue("dragModifierKey", (int)KeyCode.LeftAlt);
 
             // применяем в игру
             JumpXpMultiplierPatch.SetMultiplier(multiplier);
@@ -72,6 +72,7 @@ namespace HelloWorldMod.UI.Menu
                     MenuManager.Instance.WaitForKey(WaitingFor.HudToggleKey,key =>
                     {
                         MenuManager.Instance.hudToggleKey = key;
+                        hudKey = key;
                     });
                 }
             }
@@ -89,6 +90,7 @@ namespace HelloWorldMod.UI.Menu
                     MenuManager.Instance.WaitForKey(WaitingFor.DragModifierKey,key =>
                     {
                         MenuManager.Instance.dragModifier = key;
+                        dragKey = key;
                     });
                 }
             }
