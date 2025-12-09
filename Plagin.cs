@@ -6,7 +6,7 @@ using HelloWorldMod.UI.Menu;
 
 namespace HelloWorldMod
 {
-    [BepInPlugin("com.serge.helloworld", "Hello World Mod", "1.0.0")]
+    [BepInPlugin("com.serge.helloworld", "Hello World Mod", "1.0.1")]
     public class Plugin : BaseUnityPlugin
     {
         private Harmony _harmony;

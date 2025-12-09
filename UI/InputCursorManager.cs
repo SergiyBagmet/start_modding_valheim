@@ -1,4 +1,5 @@
 using HelloWorldMod.Patches;
+using HelloWorldMod.UI.Menu;
 using UnityEngine;
 
 namespace HelloWorldMod.UI
@@ -33,6 +34,9 @@ namespace HelloWorldMod.UI
 
         private void Update()
         {
+            if (MenuManager.Instance != null && MenuManager.Instance.AnyMenuOpen)
+                return;
+                
             if (editingMode != lastState)
             {
                 lastState = editingMode;
